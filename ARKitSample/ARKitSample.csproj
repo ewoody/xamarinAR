@@ -108,7 +108,9 @@
   </ItemGroup>
   <ItemGroup>
     <SceneKitAsset Include="art.scnassets\texture.png" />
-    <SceneKitAsset Include="art.scnassets\ship.dae" />
+    <SceneKitAsset Include="art.scnassets\arrow-up.dae" />
+    <SceneKitAsset Include="art.scnassets\arrow-left.dae" />
+    <SceneKitAsset Include="art.scnassets\arrow-right.dae" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />

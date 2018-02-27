@@ -48,10 +48,10 @@ namespace ARKitSample
 			SceneView.Session.Delegate = new SessionDelegate();
 
 			// Create a new scene
-			var scene = SCNScene.FromFile("art.scnassets/ship");
+			var arrowRight = SCNScene.FromFile("art.scnassets/arrow-right");
 
 			// Set the scene to the view
-			SceneView.Scene = scene;
+            SceneView.Scene = arrowRight;
 
 
 			// Add a tap gesture recognizer
@@ -75,7 +75,7 @@ namespace ARKitSample
 
 
 			// Find the ship and position it just in front of the camera
-			var ship = SceneView.Scene.RootNode.FindChildNode("ship", true);
+			var ship = SceneView.Scene.RootNode.FindChildNode("ArrowRight", true);
 			
 
             ship.Position = new SCNVector3(2f, -2f, -9f);
