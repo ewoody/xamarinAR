@@ -5,7 +5,7 @@
 	<key>CFBundleName</key>
 	<string>ARKitSample</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.xamarin.ARKitSample</string>
+	<string>com.tetrapak.ARKitSample</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>

@@ -79,6 +79,7 @@ namespace ARKitSample
 			
 
             ship.Position = new SCNVector3(2f, -2f, -9f);
+            ship.RunAction(SCNAction.RepeatActionForever(SCNAction.MoveBy(new SCNVector3(1f, 0f, 0f), 1)));
             //HACK: to see the jet move (circle around the viewer in a roll), comment out the ship.Position line above
             // and uncomment the code below (courtesy @lobrien)
 
