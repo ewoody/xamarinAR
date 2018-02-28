@@ -13,6 +13,8 @@ namespace ARKitSample
         private SCNNode ArrowLeft;
         private SCNNode ArrowRight;
 
+        private bool bShow = true;
+
         enum Direction
         {
             Left,
@@ -99,6 +101,7 @@ namespace ARKitSample
 			
             StartNavigating(); 
             ChangeDirection();
+            BlinkTimer();
 			
 		}
 
@@ -122,34 +125,6 @@ namespace ARKitSample
 
             // Run the view's session
             SceneView.Session.Run(configuration, ARSessionRunOptions.ResetTracking);
-
-            // Find the ship and position it just in front of the camera
-
-            //var ship = SceneView.Scene.RootNode.ChildNodes[0];
-            //ship.Position = new SCNVector3(0f, 0f, -0.5f);
-            //SceneView.PointOfView.AddChildNode(ship);
-            //ship.Scale = new SCNVector3(0.1f, 0.1f, 0.1f);
-
-
-
-
-
-            //ship.RunAction(SCNAction.RepeatActionForever(SCNAction.MoveBy(new SCNVector3(1f, 0f, 0f), 1)));
-            //HACK: to see the jet move (circle around the viewer in a roll), comment out the ship.Position line above
-            // and uncomment the code below (courtesy @lobrien)
-
-            //var animation = SCNAction.RepeatActionForever(SCNAction.RotateBy(0, (float)Math.PI, (float)Math.PI, (float)1));
-            //var pivotNode = new SCNNode { Position = new SCNVector3(0.0f, 2.0f, 0.0f) };
-            //pivotNode.RunAction(SCNAction.RepeatActionForever(SCNAction.RotateBy(0, -2, 0, 10)));
-            //ship.RemoveFromParentNode();
-            //pivotNode.AddChildNode(ship);
-            //SceneView.Scene.RootNode.AddChildNode(pivotNode);
-            //ship.Position = new SCNVector3(2f, -2f, -3f);
-            //ship.RunAction(SCNAction.RepeatActionForever(SCNAction.RotateBy(0, 0, 2, 1)));
-
-            //ENDHACK
-
-
 
             StartOrResetTimer();
 
@@ -195,14 +170,6 @@ namespace ARKitSample
 
         private void ChangeDirection()
         {
-            //var node = SceneView.Scene.RootNode.FindChildNode("ArrowRight", true);
-            //node.RemoveFromParentNode();
-            //ArrowUp.Position = new SCNVector3(0f, 0f, -0.5f);
-
-            //SceneView.Scene.RootNode.AddChildNode(ArrowUp);
-            //SceneView.PointOfView.AddChildNode(ArrowUp);
-
-
             SCNScene arrow = null; 
             if (direction == Direction.Right)
             {
@@ -216,7 +183,6 @@ namespace ARKitSample
             {
                 arrow = SCNScene.FromFile("art.scnassets/arrow-up");
             }
-            //ArrowLeft = arrowLeft.RootNode.FindChildNode("ArrowLeft", true);
             SceneView.Scene = arrow;
             var ship = SceneView.Scene.RootNode.ChildNodes[0];
 
@@ -246,6 +212,26 @@ namespace ARKitSample
 
                 });
             });
+        }
+
+        public void BlinkTimer()
+        {
+            Task.Run(async () =>
+            {
+                await Task.Delay(300);
+                InvokeOnMainThread(() =>
+                {
+                    DoBlink();
+                });
+            });
+        }
+
+        private void DoBlink()
+        {
+            var ship = SceneView.Scene.RootNode.ChildNodes[0];
+            ship.Hidden = bShow;
+            bShow = !bShow;
+            BlinkTimer();
         }
 
         public void ShowDestinationReached()
